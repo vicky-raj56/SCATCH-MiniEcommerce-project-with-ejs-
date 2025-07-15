@@ -36,13 +36,13 @@ const userController = async (req, res) => {
     // jsonwebtoken
     const token = generateToken(savedUser);
     res.cookie("token", token);
-    res.redirect("/")
-    // res.status(201).json({
-    //   success: true,
-    //   message: "User created successfully",
-    //   user: savedUser,
-    //   token,
-    // });
+    // res.redirect("/");
+    res.status(201).json({
+      success: true,
+      message: "User created successfully",
+      user: savedUser,
+      token,
+    });
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({
@@ -93,4 +93,4 @@ const loginController = async (req, res) => {
   }
 };
 
-export { userController, loginController, };
+export { userController, loginController };

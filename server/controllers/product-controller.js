@@ -25,7 +25,7 @@ const productController = async (req, res) => {
       image: filePath,
     });
     const savedproduct = await product.save();
-    res.send("product created");
+    res.status(200).json({success:true,message:"product created"});
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -35,5 +35,20 @@ const productController = async (req, res) => {
     });
   }
 };
+const getProductData = async (req,res)=>{
+    try {
+      const products = await productModel.find({})
+    if(products){
+      res.status(200).json({success:true,message:"Product data factched" ,products})
+    }else{
+      res.status(400).json({success:false,message:"Product not found "})
+    }
+    // console.log(products)
+    // res.render("shop",{products})
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({success:false,message:"Internal server errror",error:error.message})
+    }
+}
 
-export { productController };
+export { productController ,getProductData};
